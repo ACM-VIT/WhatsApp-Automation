@@ -1,3 +1,6 @@
 from auto import numberOfMembers
 
-print(numberOfMembers("ACM Research Formal Group"))
+groups = ["ACM Research Formal Group","ACM Board Technical","ACM-VIT | INFORMAL"]
+
+print(numberOfMembers(groups))
+
