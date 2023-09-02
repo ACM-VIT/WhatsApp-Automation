@@ -1,5 +1,2 @@
-CHROME_PROFILE_PATH = "user-data-dir=C:\\Users\\<username>\\AppData\\Local\\Google\\Chrome\\User Data\\Wtsp"
-
-# Windows 7, 8.1, and 10: C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Wtsp
-# Mac OS X El Capitan: Users/<username>/Library/Application Support/Google/Chrome/Wtsp
-# Linux: /home/<username>/.config/google-chrome/Wtsp
+CHROME_DRIVER_PATH = "C:\\chromedriver.exe"
+# Download Chrome Driver from https://chromedriver.chromium.org/downloads and paste the link here.
