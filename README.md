@@ -1,10 +1,6 @@
-# WhatsApp-Automation
-Automates the process of getting the number of participants in a WhatsApp group
+# Whatsapp Automation
 
-To run - <br/>
-* run "pip install -r requirements.txt"
-* download webdriver from here - <https://chromedriver.chromium.org/downloads>
-* replace the "username" in config.py with your username on system
-* add group names in the list in main.py
+* Install ChromeDriver from the link in config.py
+* Edit config.py with the path of the webdriver
+* Enter Group Name for which you want to find details.
 * run main.py script
-
