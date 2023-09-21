@@ -5,14 +5,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 import pyperclip
 import time
-from config import CHROME_PROFILE_PATH
+from config import CHROME_DRIVER_PATH
+import os
 
 
 def numberOfMembers(groups):
-    options = webdriver.ChromeOptions()
-    options.add_argument(CHROME_PROFILE_PATH)
+    os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
 
-    browser = webdriver.Chrome(options = options)
+    print(os.environ['PATH'])
+
+    browser = webdriver.Chrome(CHROME_DRIVER_PATH)
 
     browser.maximize_window()
 
@@ -26,31 +28,27 @@ def numberOfMembers(groups):
     
     res = []
     for group_name in groups:
-        search_box.clear()
-
+        search_box.click()  # Click the div to ensure it has focus
+        while len(search_box.text) > 0:
+            search_box.send_keys(Keys.BACK_SPACE)
         pyperclip.copy(group_name)
 
         search_box.send_keys(Keys.SHIFT, Keys.INSERT)
+        search_box.click()
+        search_box.send_keys(Keys.ENTER)
 
-        time.sleep(1)
-        group_xpath = f'//span[@title="{group_name}"]'
-        group_title = browser.find_elements_by_xpath(group_xpath)
+        top_xpath = f'//*[@id="main"]/header/div[2]/div[1]/div/span'
 
-        print(len(group_title))
-        group_title[0].click()
-
-        top_xpath = f'(//span[@title="{group_name}"])[2]'
-        top_click = browser.find_element_by_xpath(top_xpath)
-
+        top_click = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, top_xpath)))
         # print(top_click)
         top_click.click()
-
-        number_xpath = '(//span[@class="_2MNpf VWPRY _1lF7t"])[3]' 
-        number_of_part = browser.find_element_by_xpath(number_xpath)
+        time.sleep(3)
+        number_xpath = '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[1]/div/div[3]/span/span/button' 
+        number_of_part = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, number_xpath)))
 
         num = number_of_part.get_attribute('innerHTML')
 
-        ans = int(num.partition(' ')[0])
+        ans = int(num.split(' ')[0])
 
         res.append(ans)
     return res
