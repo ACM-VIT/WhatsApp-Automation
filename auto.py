@@ -12,8 +12,6 @@ import os
 def numberOfMembers(groups):
     os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
 
-    print(os.environ['PATH'])
-
     browser = webdriver.Chrome(CHROME_DRIVER_PATH)
 
     browser.maximize_window()
@@ -29,21 +27,24 @@ def numberOfMembers(groups):
     res = []
     for group_name in groups:
         search_box.click()  # Click the div to ensure it has focus
-        while len(search_box.text) > 0:
-            search_box.send_keys(Keys.BACK_SPACE)
+        
+        # Issue #10
+        # the previous group name must be removed before pasting in new group name
+        
         pyperclip.copy(group_name)
 
         search_box.send_keys(Keys.SHIFT, Keys.INSERT)
         search_box.click()
         search_box.send_keys(Keys.ENTER)
 
-        top_xpath = f'//*[@id="main"]/header/div[2]/div[1]/div/span'
+        top_xpath = '//*[@id="main"]/header/div[2]/div[1]/div/span'
 
         top_click = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, top_xpath)))
-        # print(top_click)
         top_click.click()
         time.sleep(3)
-        number_xpath = '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[1]/div/div[3]/span/span/button' 
+
+        # Issue #6
+        number_xpath = "" # complete Xpath of the element that contains number of participants.
         number_of_part = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, number_xpath)))
 
         num = number_of_part.get_attribute('innerHTML')
@@ -52,6 +53,3 @@ def numberOfMembers(groups):
 
         res.append(ans)
     return res
-
-
-
