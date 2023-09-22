@@ -41,7 +41,7 @@ def numberOfMembers(groups):
 
         top_click = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, top_xpath)))
         top_click.click()
-        time.sleep(3)
+        time.sleep(10)
 
         # Issue #6
         number_xpath = "" # complete Xpath of the element that contains number of participants.
