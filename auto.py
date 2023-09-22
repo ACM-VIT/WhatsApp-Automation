@@ -43,6 +43,9 @@ def numberOfMembers(groups):
         search_box.click()
         search_box.send_keys(Keys.ENTER)
 
+        clear_button = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/div[4]/div/div[1]/div/div/span/button')))
+        clear_button.click()
+
         top_xpath = '//*[@id="main"]/header/div[2]/div[1]/div/span'
 
         top_click = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, top_xpath)))
