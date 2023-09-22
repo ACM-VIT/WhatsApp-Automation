@@ -27,7 +27,7 @@ def numberOfMembers(groups):
     res = []
     for group_name in groups:
         search_box.click()  # Click the div to ensure it has focus
-        
+        search_box.clear()
         # Issue #10
         # the previous group name must be removed before pasting in new group name
         
