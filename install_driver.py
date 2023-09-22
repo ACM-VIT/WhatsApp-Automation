@@ -48,6 +48,9 @@ def install_driver():
         zipObj.extractall()
     zipObj.close()
 
+    print("Deleting chromedriver.zip...")
+    os.remove("chromedriver.zip")
+
     print("Done!")
 
     if not os.path.exists("platform.txt"):
