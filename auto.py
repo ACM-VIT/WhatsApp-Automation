@@ -28,8 +28,7 @@ def numberOfMembers(groups):
     for group_name in groups:
         search_box.click()  # Click the div to ensure it has focus
         
-        # Issue #10
-        # the previous group name must be removed before pasting in new group name
+        search_box.clear()  # This line clears the search box
         
         pyperclip.copy(group_name)
 
