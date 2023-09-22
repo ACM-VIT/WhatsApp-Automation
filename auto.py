@@ -2,17 +2,23 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 import pyperclip
 import time
-from config import CHROME_DRIVER_PATH
+from config import CHROME_DRIVER_PATH, CHROME_PATH
 import os
 
 
 def numberOfMembers(groups):
     os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
 
-    browser = webdriver.Chrome(CHROME_DRIVER_PATH)
+    options = webdriver.ChromeOptions()
+    options.binary_location = CHROME_PATH
+    # options.add_argument(r'--user-data-dir=/Users/aakaash/Library/Application Support/Google/Chrome/')
+    # options.add_argument(r'--profile-directory=Default')
+
+    browser = webdriver.Chrome(CHROME_DRIVER_PATH, chrome_options=options)
 
     browser.maximize_window()
 
@@ -44,7 +50,7 @@ def numberOfMembers(groups):
         time.sleep(3)
 
         # Issue #6
-        number_xpath = "" # complete Xpath of the element that contains number of participants.
+        number_xpath = '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[1]/div/div[3]/span/span/button' # complete Xpath of the element that contains number of participants.
         number_of_part = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, number_xpath)))
 
         num = number_of_part.get_attribute('innerHTML')
