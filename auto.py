@@ -17,7 +17,9 @@ def numberOfMembers(groups):
     browser.maximize_window()
 
     browser.get('https://web.whatsapp.com/')
-
+    
+    time.sleep(10)
+    
     xpath = '//div[@contenteditable="true"][@data-tab="3"]'
 
     search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, xpath)))
