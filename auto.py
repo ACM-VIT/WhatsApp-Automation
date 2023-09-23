@@ -43,7 +43,7 @@ def numberOfMembers(groups):
         time.sleep(10)
 
         # Issue #6
-        number_xpath = "" # complete Xpath of the element that contains number of participants.
+        number_xpath = '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[1]/div/div[3]/span/span/button' # complete Xpath of the element that contains number of participants.
         number_of_part = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, number_xpath)))
 
         num = number_of_part.get_attribute('innerHTML')
