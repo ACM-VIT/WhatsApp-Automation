@@ -7,7 +7,7 @@ import pyperclip
 import time
 from config import CHROME_DRIVER_PATH
 import os
-
+from prettytable import PrettyTable
 
 def numberOfMembers(groups):
     os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
@@ -24,7 +24,8 @@ def numberOfMembers(groups):
 
     search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, xpath)))
     
-    res = []
+    table = PrettyTable()
+    table.field_names = ["Group Name", "Number of Members"]
     for group_name in groups:
         search_box.click()  # Click the div to ensure it has focus
         
@@ -50,5 +51,5 @@ def numberOfMembers(groups):
 
         ans = int(num.split(' ')[0])
 
-        res.append(ans)
-    return res
+        table.add_row([group_name, ans])
+    return table

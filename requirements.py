@@ -5,6 +5,7 @@ required_packages = [
     "pyperclip==1.8.2",
     "selenium==3.141.0",
     "urllib3==1.26.6",
+    "prettytable==3.9.0"
 ]
 
 # Install the required packages
