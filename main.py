@@ -1,15 +1,16 @@
-import subprocess
+from tabulate import tabulate
+from auto import numberOfMembers, print_names
 
-# Run the requirements.py script to install required packages
-subprocess.check_call(["python", "requirements.py"])
+# Insert your group names here
+groups = ["PRP107", "VVIP LOUNGE"]
 
-from auto import numberOfMembers
-import subprocess
+head = ["Group Name", "Number of Participants"]
+members = numberOfMembers(groups)
 
-subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
+data = []
+for i in range(len(groups)):
+    data.append([groups[i], members[i]])
 
-groups = ["ACM Research Formal Group","ACM Board Technical","ACM-VIT | INFORMAL"]
-#Insert your group names here
+print(tabulate(data, headers=head, tablefmt="github"))
 
-print(numberOfMembers(groups))
-
+# print_names("PRP107", 58)

@@ -1,14 +1,11 @@
 import subprocess
+from install_driver import install_driver
 
-# Define the required packages and their versions
-required_packages = [
-    "pyperclip==1.8.2",
-    "selenium==3.141.0",
-    "urllib3==1.26.6",
-    "prettytable==3.9.0"
-]
+# Define required packages and their versions
+with open("requirements.txt", "r") as required_packages:
 
-# Install the required packages
-for package in required_packages:
-    subprocess.check_call(["pip", "install", package])
+    # Install required packages
+    for package in required_packages:
+        subprocess.check_call(["pip", "install", package])
 
+install_driver()
