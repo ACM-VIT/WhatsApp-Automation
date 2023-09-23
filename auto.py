@@ -62,3 +62,36 @@ def numberOfMembers(groups):
 
         res.append(ans)
     return res
+
+def print_names(group_name, number_of_members):
+    os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
+
+    options = webdriver.ChromeOptions()
+    options.binary_location = CHROME_PATH
+    # options.add_argument(r'--user-data-dir=/Users/aakaash/Library/Application Support/Google/Chrome/')
+    # options.add_argument(r'--profile-directory=Default')
+
+    browser = webdriver.Chrome(CHROME_DRIVER_PATH, chrome_options=options)
+    browser.maximize_window()
+    browser.get('https://web.whatsapp.com/')
+    time.sleep(10)
+
+    xpath = '//div[@contenteditable="true"][@data-tab="3"]'
+    search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, xpath)))
+    search_box.click()
+    pyperclip.copy(group_name)
+    search_box.send_keys(Keys.SHIFT, Keys.INSERT)
+    search_box.click()
+    search_box.send_keys(Keys.ENTER)
+
+    top_xpath = '//*[@id="main"]/header/div[2]/div[1]/div/span'
+    top_click = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, top_xpath)))
+    top_click.click()
+    time.sleep(3)
+
+    view_all_button = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[6]/div[2]/div[2]/div[2]/div')))
+    view_all_button.click()
+    time.sleep(3)
+
+    numbers = browser.find_element_by_css_selector('#app > div > span:nth-child(2) > div > span > div > div > div > div > div > div > div.g0rxnol2.g0rxnol2.thghmljt.p357zi0d.rjo8vgbg.ggj6brxn.f8m0rgwh.gfz4du6o.ag5g9lrv.bs7a17vp.ov67bkzj > div > div > div > div:nth-child(11) > div > div > div._8nE1Y > div.y_sn4 > div > span')
+    print(numbers)
