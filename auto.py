@@ -8,7 +8,7 @@ import pyperclip
 import time
 from config import CHROME_DRIVER_PATH, CHROME_PATH
 import os
-from prettytable import PrettyTable
+
 
 def numberOfMembers(groups):
     os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
@@ -30,13 +30,12 @@ def numberOfMembers(groups):
 
     search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, xpath)))
     
-    table = PrettyTable()
-    table.field_names = ["Group Name", "Number of Members"]
+    res = []
     for group_name in groups:
         search_box.click()  # Click the div to ensure it has focus
         
-        search_box.send_keys(Keys.CONTROL + "a")
-        search_box.send_keys(Keys.DELETE)
+        # Issue #10
+        # the previous group name must be removed before pasting in new group name
         
         pyperclip.copy(group_name)
 
@@ -51,10 +50,9 @@ def numberOfMembers(groups):
 
         top_click = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, top_xpath)))
         top_click.click()
-        time.sleep(10)
+        time.sleep(3)
 
         # Issue #6
-        number_xpath = '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[1]/div/div[3]/span/span/button' # complete Xpath of the element that contains number of participants.
         number_xpath = '//*[@id="app"]/div/div/div[6]/span/div/span/div/div/div/section/div[1]/div/div[3]/span/span/button' # complete Xpath of the element that contains number of participants.
         number_of_part = WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, number_xpath)))
 
