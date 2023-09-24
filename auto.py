@@ -6,24 +6,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 import pyperclip
 import time
-from config import CHROME_DRIVER_PATH, CHROME_PATH
-import os
 from prettytable import PrettyTable
 
-def numberOfMembers(groups):
-    os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
-
-    options = webdriver.ChromeOptions()
-    options.binary_location = CHROME_PATH
-
-    browser = webdriver.Chrome(CHROME_DRIVER_PATH, chrome_options=options)
-
-    browser.maximize_window()
-
-    browser.get('https://web.whatsapp.com/')
-
-    time.sleep(10)
-
+def numberOfMembers(browser, groups):
     xpath = '//div[@contenteditable="true"][@data-tab="3"]'
 
     search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, xpath)))
@@ -57,14 +42,7 @@ def numberOfMembers(groups):
         res.append(ans)
     return res
 
-def get_members_info(group_name):
-    os.environ['PATH'] += os.pathsep + CHROME_DRIVER_PATH
-
-    browser = webdriver.Chrome(CHROME_DRIVER_PATH)
-    browser.maximize_window()
-    browser.get('https://web.whatsapp.com/')
-    time.sleep(10)
-
+def get_members_info(browser, group_name):
     # search group
     search_box_xpath = '//div[@contenteditable="true"][@data-tab="3"]'
     search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, search_box_xpath)))
@@ -149,6 +127,16 @@ def getParticipantsInfo(browser, start, end, count, moreThan10):
         click_on(browser, '//*[@id="app"]/div/div/div[6]/span/div/span/div/header/div/div[1]/div/span')
 
     return rows
+
+def send_on_whatsapp(browser, result):
+    msg_box_xpath = '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]'
+    msg_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, msg_box_xpath)))
+    msg_box.click()
+
+    pyperclip.copy(result)
+    msg_box.send_keys(Keys.SHIFT, Keys.INSERT)
+    msg_box.click()
+    msg_box.send_keys(Keys.ENTER)
 
 def click_on(browser, xpath):
     WebDriverWait(browser, 1000).until(EC.presence_of_element_located((By.XPATH, xpath))).click()
