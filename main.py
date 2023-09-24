@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from auto import numberOfMembers, getParticipantsInfo
+from auto import numberOfMembers, get_members_info
 
 # change num to 1 or 2 to run the respective code
 num = 2
@@ -21,4 +21,4 @@ if num == 1:
 # 2. Get participants' info
 elif num == 2:
     # Insert your group name here
-    getParticipantsInfo("Group Name")
+    get_members_info("Group Name")
