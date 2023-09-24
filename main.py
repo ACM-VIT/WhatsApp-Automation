@@ -1,16 +1,24 @@
 from tabulate import tabulate
-from auto import numberOfMembers, print_names
+from auto import numberOfMembers, getParticipantsInfo
 
-# Insert your group names here
-groups = ["PRP107", "VVIP LOUNGE"]
+# change num to 1 or 2 to run the respective code
+num = 2
 
-head = ["Group Name", "Number of Participants"]
-members = numberOfMembers(groups)
+# 1. Get number of participants in each group
+if num == 1:
+    # Insert your group names here
+    groups = ["Group 1", "Group 2"]
 
-data = []
-for i in range(len(groups)):
-    data.append([groups[i], members[i]])
+    head = ["Group Name", "Number of Participants"]
+    members = numberOfMembers(groups)
 
-print(tabulate(data, headers=head, tablefmt="github"))
+    data = []
+    for i in range(len(groups)):
+        data.append([groups[i], members[i]])
 
-# print_names("PRP107", 58)
+    print(tabulate(data, headers=head, tablefmt="github"))
+
+# 2. Get participants' info
+elif num == 2:
+    # Insert your group name here
+    getParticipantsInfo("Group Name")
