@@ -21,4 +21,4 @@ if num == 1:
 # 2. Get participants' info
 elif num == 2:
     # Insert your group name here
-    get_members_info("Group Name")
+    print(get_members_info("Group Name"))
