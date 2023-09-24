@@ -8,7 +8,7 @@ import pyperclip
 import time
 from prettytable import PrettyTable
 
-def numberOfMembers(browser, groups):
+def numberOfMembers(browser, groups, output_choice):
     xpath = '//div[@contenteditable="true"][@data-tab="3"]'
 
     search_box = WebDriverWait(browser, 500).until(EC.presence_of_element_located((By.XPATH, xpath)))
@@ -38,6 +38,9 @@ def numberOfMembers(browser, groups):
         num = number_of_part.get_attribute('innerHTML')
 
         ans = int(num.split(' ')[0])
+
+        if output_choice == "2":
+            send_on_whatsapp(browser, "*Number of participants in Group:* " + str(ans))
 
         res.append(ans)
     return res
@@ -69,7 +72,7 @@ def get_members_info(browser, group_name):
     # get self's mobile number & add it to table
     my_mobile_xpath = '//*[@id="pane-side"]/div/div/div/div[1]/div/div/div[2]/div[2]/div[2]/span[1]/span'
     my_mobile_element = WebDriverWait(browser, 100).until(EC.presence_of_element_located((By.XPATH, my_mobile_xpath)))
-    table.add_row([1, "You", my_mobile_element.get_attribute('innerHTML')])
+    table.add_row([1, "Me ", my_mobile_element.get_attribute('innerHTML')])
 
     if total_participants > 10:
         table.add_rows(getParticipantsInfo(browser, 10, 2, 1, 1))
